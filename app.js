@@ -10,6 +10,14 @@ app.get('/', (req, res) => {
   res.render('index')
 })
 
+app.get('/new', (req, res) => {
+  res.render('new')
+})
+
+app.get('/:id/edit', (req, res) => {
+  res.render('edit')
+})
+
 app.listen(PORT, () => {
   console.log(`app is listening at http://localhost:${PORT}/`)
 })
