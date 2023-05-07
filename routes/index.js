@@ -1,12 +1,13 @@
 const express = require('express')
 const router = express.Router()
+const getToday = require('../config/getToday')
 
 router.get('/', (req, res) => {
   res.render('index')
 })
 
 router.get('/new', (req, res) => {
-  res.render('new')
+  res.render('new', { date: getToday() })
 })
 
 router.get('/:id/edit', (req, res) => {
