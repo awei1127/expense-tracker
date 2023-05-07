@@ -1,3 +1,99 @@
 <div class="container">
-  <h1>Hello world</h1>
+  <!--類別下拉選單-->
+  <div class="dropdown text-center mt-5">
+    <button class="btn btn-secondary dropdown-toggle w-50 text-start" type="button" id="dropdownMenuButton1"
+      data-bs-toggle="dropdown" aria-expanded="false">
+      類別
+    </button>
+    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+      <li><a class="dropdown-item" href="#">家居物業</a></li>
+      <li><a class="dropdown-item" href="#">交通出行</a></li>
+      <li><a class="dropdown-item" href="#">休閒娛樂</a></li>
+      <li><a class="dropdown-item" href="#">餐飲食品</a></li>
+      <li><a class="dropdown-item" href="#">其他</a></li>
+    </ul>
+  </div>
+
+  <!--金額合計-->
+  <div class="d-flex justify-content-between w-50 mx-auto mt-5">
+    <h2>總金額：</h2>
+    <h2 id="totalAmount" name="totalAmount">25260</h2>
+  </div>
+
+  <!--一覽表-->
+  <table class="table table-striped mx-auto w-50 mt-5">
+    <tbody>
+      <tr class="row">
+        <td class="col d-flex align-items-center justify-content-center">
+          <i class="fa-solid fa-utensils fa-2xl"></i>
+        </td>
+        <td class="col-4 d-flex flex-column justify-content-between">
+          <h2>午餐</h2>
+          <p class="mb-0">2023/5/7</p>
+        </td>
+        <td class="col-4 d-flex align-items-center justify-content-end">
+          <h2>12000</h2>
+        </td>
+        <td class="col d-flex align-items-center justify-content-center">
+          <button type="button" class="btn">
+            <i class="fa-solid fa-pen fa-xl"></i>
+          </button>
+        </td>
+        <td class="col d-flex align-items-center justify-content-center">
+          <button type="button" class="btn">
+            <i class="fa-solid fa-trash fa-xl"></i>
+          </button>
+        </td>
+      </tr>
+      <tr class="row">
+        <td class="col d-flex align-items-center justify-content-center">
+          <i class="fa-solid fa-utensils fa-2xl"></i>
+        </td>
+        <td class="col-4 d-flex flex-column justify-content-between">
+          <h2>午餐</h2>
+          <p class="mb-0">2023/5/7</p>
+        </td>
+        <td class="col-4 d-flex align-items-center justify-content-end">
+          <h2>12000</h2>
+        </td>
+        <td class="col d-flex align-items-center justify-content-center">
+          <button type="button" class="btn">
+            <i class="fa-solid fa-pen fa-xl"></i>
+          </button>
+        </td>
+        <td class="col d-flex align-items-center justify-content-center">
+          <button type="button" class="btn">
+            <i class="fa-solid fa-trash fa-xl"></i>
+          </button>
+        </td>
+      </tr>
+      <tr class="row">
+        <td class="col d-flex align-items-center justify-content-center">
+          <i class="fa-solid fa-utensils fa-2xl"></i>
+        </td>
+        <td class="col-4 d-flex flex-column justify-content-between">
+          <h2>午餐</h2>
+          <p class="mb-0">2023/5/7</p>
+        </td>
+        <td class="col-4 d-flex align-items-center justify-content-end">
+          <h2>12000</h2>
+        </td>
+        <td class="col d-flex align-items-center justify-content-center">
+          <button type="button" class="btn">
+            <i class="fa-solid fa-pen fa-xl"></i>
+          </button>
+        </td>
+        <td class="col d-flex align-items-center justify-content-center">
+          <button type="button" class="btn">
+            <i class="fa-solid fa-trash fa-xl"></i>
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!--新增按鈕-->
+  <div class="text-center mt-5">
+    <button type="button" class="btn btn-success">新增支出</button>
+  </div>
 </div>
