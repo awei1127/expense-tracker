@@ -18,6 +18,14 @@ app.get('/:id/edit', (req, res) => {
   res.render('edit')
 })
 
+app.get('/register', (req, res) => {
+  res.render('register')
+})
+
+app.get('/login', (req, res) => {
+  res.render('login')
+})
+
 app.listen(PORT, () => {
   console.log(`app is listening at http://localhost:${PORT}/`)
 })
