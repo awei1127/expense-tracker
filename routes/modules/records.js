@@ -1,14 +1,23 @@
 const express = require('express')
 const router = express.Router()
-const dateTrans = require('../../config/dateTrans')
+const tools = require('../../config/tools')
 const RecordModel = require('../../models/recordModel')
+const CategoryModel = require('../../models/categoryModel')
 
 router.get('/:id/edit', async (req, res) => {
   const _id = req.params.id
-  const record = await RecordModel.findOne({ _id })
-  const { name, date, amount } = record
-  const formatDate = dateTrans.formatDate(date)
-  res.render('edit', { name, date: formatDate, amount, _id })
+  const userId = req.user._id
+  const record = await RecordModel.findOne({ _id, userId })
+  const categories = await CategoryModel.find().lean().sort({ _id: 'asc' })
+  const { name, date, amount, categoryId } = record
+  // 在類別清單中，為已選中的類別加上isSelected屬性。
+  categories.forEach(category => {
+    if (category._id.toString() === categoryId.toString()) {
+      category.isSelected = true
+    }
+  })
+  const formatDate = tools.formatDate(date)
+  res.render('edit', { name, date: formatDate, amount, _id, categories })
 })
 
 // 改

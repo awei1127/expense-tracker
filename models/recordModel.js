@@ -19,14 +19,12 @@ const recordSchema = new Schema({
     ref: 'UserModel',
     required: true,
     index: true
-  }
-  /*
+  },
   categoryId: {
     type: Schema.Types.ObjectId,
     ref: 'CategoryModel',
     required: true
   }
-  */
 })
 
 module.exports = mongoose.model('RecordModel', recordSchema)
