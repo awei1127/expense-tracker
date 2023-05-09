@@ -2,7 +2,6 @@ const express = require('express')
 const router = express.Router()
 const dateTrans = require('../../config/dateTrans')
 const RecordModel = require('../../models/recordModel')
-const UserModel = require('../../models/userModel')
 
 router.get('/:id/edit', async (req, res) => {
   const _id = req.params.id
@@ -15,7 +14,8 @@ router.get('/:id/edit', async (req, res) => {
 // 改
 router.put('/:id/edit', async (req, res) => {
   const _id = req.params.id
-  const record = await RecordModel.findOne({ _id })
+  const userId = req.user._id
+  const record = await RecordModel.findOne({ _id, userId })
   Object.assign(record, req.body) // 把使用者輸入的一筆資料賦值給從資料庫找出的一筆資料
   await record.save()
   res.redirect('/')
@@ -24,7 +24,8 @@ router.put('/:id/edit', async (req, res) => {
 // 刪
 router.delete('/:id', async (req, res) => {
   const _id = req.params.id
-  await RecordModel.findOneAndDelete({ _id })
+  const userId = req.user._id
+  await RecordModel.findOneAndDelete({ _id, userId })
   res.redirect('/')
 })
 
