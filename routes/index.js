@@ -3,6 +3,8 @@ const router = express.Router()
 const dateTrans = require('../config/dateTrans')
 const RecordModel = require('../models/recordModel')
 const UserModel = require('../models/userModel')
+const passport = require('passport')
+
 
 // 查
 router.get('/', async (req, res) => {
@@ -75,22 +77,9 @@ router.get('/login', (req, res) => {
   res.render('login')
 })
 
-router.post('/login', async (req, res) => {
-  const { email, password } = req.body
-  // 去資料庫找email 否則提示未註冊 是則比對密碼
-  const user = await UserModel.findOne({ email })
-  if (!user) {
-    console.log('該email尚未註冊')  // 預計在此行顯示email尚未註冊的提示訊息
-    return res.render('login', { email, password })
-  }
-  // 密碼錯誤則顯示提示訊息 正確則給他token並導到首頁
-  if (user.password !== password) {
-    console.log('密碼錯誤')  // 預計在此行顯示密碼錯誤的提示訊息
-    return res.render('login', { email, password })
-  }
-  // 預計在此行給token
-  console.log('login success')
-  res.redirect('/')
-})
+router.post('/login', passport.authenticate('local', {
+  failureRedirect: '/login',
+  successRedirect: '/'
+}))
 
 module.exports = router
