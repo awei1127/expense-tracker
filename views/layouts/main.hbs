@@ -13,12 +13,19 @@
 <body>
   <nav class="navbar navbar-light bg-light">
     <div class="container">
-      <a class="navbar-brand" href="#">
+      <a class="navbar-brand" href="/">
         <strong>家庭記帳本</strong>
       </a>
+      {{#if isAuthenticated}}
       <form action="/users/logout" method="POST">
-        <button class="btn btn-outline-success" type="submit">登出</button>
+        <button class="btn btn-outline-success mx-2" type="submit">登出</button>
       </form>
+      {{else}}
+      <div class="d-flex">
+        <a href="/users/register" class="btn btn-success mx-2" type="submit">註冊</a>
+        <a href="/users/login" class="btn btn-outline-success mx-2" type="submit">登入</a>
+      </div>
+      {{/if}}
     </div>
   </nav>
   {{{body}}}
