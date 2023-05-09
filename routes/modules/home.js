@@ -31,6 +31,9 @@ router.get('/', async (req, res) => {
     record.date = tools.formatDate(record.date)
     // 計算總金額
     totalAmount += record.amount
+    // 用類別id找出icon並新增到record
+    const category = categories.find(category => category._id.toString() === record.categoryId.toString())
+    record.icon = category.icon
   })
   res.locals.totalAmount = totalAmount
   res.render('index', { records, categories })
@@ -49,6 +52,9 @@ router.get('/:id', async (req, res) => {
     record.date = tools.formatDate(record.date)
     // 計算總金額
     totalAmount += record.amount
+    // 用類別id找出icon並新增到record
+    const category = categories.find(category => category._id.toString() === record.categoryId.toString())
+    record.icon = category.icon
   })
   res.locals.totalAmount = totalAmount
   res.render('index', { records, categories })

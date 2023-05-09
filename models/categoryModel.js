@@ -5,6 +5,10 @@ const categorySchema = new Schema({
   name: {
     type: String,
     required: true
+  },
+  icon: {
+    type: String,
+    default: 'fa-sharp fa-solid fa-star fa-2xl'
   }
 })
 
