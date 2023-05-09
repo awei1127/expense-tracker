@@ -64,7 +64,6 @@ router.post('/register', async (req, res) => {
   const user = await UserModel.findOne({ email })
   if (!user) {
     await UserModel.create({ name, email, password })
-    console.log('user create success')
     res.redirect('/login')
   } else {
     console.log('user exist')// 預計在此行顯示email已註冊的提示訊息
@@ -74,6 +73,24 @@ router.post('/register', async (req, res) => {
 
 router.get('/login', (req, res) => {
   res.render('login')
+})
+
+router.post('/login', async (req, res) => {
+  const { email, password } = req.body
+  // 去資料庫找email 否則提示未註冊 是則比對密碼
+  const user = await UserModel.findOne({ email })
+  if (!user) {
+    console.log('該email尚未註冊')  // 預計在此行顯示email尚未註冊的提示訊息
+    return res.render('login', { email, password })
+  }
+  // 密碼錯誤則顯示提示訊息 正確則給他token並導到首頁
+  if (user.password !== password) {
+    console.log('密碼錯誤')  // 預計在此行顯示密碼錯誤的提示訊息
+    return res.render('login', { email, password })
+  }
+  // 預計在此行給token
+  console.log('login success')
+  res.redirect('/')
 })
 
 module.exports = router
