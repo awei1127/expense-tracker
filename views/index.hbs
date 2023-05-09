@@ -23,77 +23,47 @@
   <!--一覽表-->
   <table class="table table-striped mx-auto w-50 mt-5">
     <tbody>
+      {{#each records}}
       <tr class="row">
         <td class="col d-flex align-items-center justify-content-center">
           <i class="fa-solid fa-utensils fa-2xl"></i>
         </td>
         <td class="col-4 d-flex flex-column justify-content-between">
-          <h2>午餐</h2>
-          <p class="mb-0">2023/5/7</p>
+          <h2>{{this.name}}</h2>
+          <p class="mb-0">{{this.date}}</p>
         </td>
         <td class="col-4 d-flex align-items-center justify-content-end">
-          <h2>12000</h2>
+          <h2>{{this.amount}}</h2>
         </td>
         <td class="col d-flex align-items-center justify-content-center">
-          <button type="button" class="btn">
+          <a type="button" class="btn" href="/records/{{this._id}}/edit">
             <i class="fa-solid fa-pen fa-xl"></i>
-          </button>
+          </a>
         </td>
         <td class="col d-flex align-items-center justify-content-center">
-          <button type="button" class="btn">
-            <i class="fa-solid fa-trash fa-xl"></i>
-          </button>
+          <form action="/records/{{this._id}}?_method=DELETE" method="POST" style="display: inline;">
+            <button class="btn" type="submit">
+              <i class="fa-solid fa-trash fa-xl"></i>
+            </button>
+          </form>
         </td>
       </tr>
-      <tr class="row">
-        <td class="col d-flex align-items-center justify-content-center">
-          <i class="fa-solid fa-utensils fa-2xl"></i>
-        </td>
-        <td class="col-4 d-flex flex-column justify-content-between">
-          <h2>午餐</h2>
-          <p class="mb-0">2023/5/7</p>
-        </td>
-        <td class="col-4 d-flex align-items-center justify-content-end">
-          <h2>12000</h2>
-        </td>
-        <td class="col d-flex align-items-center justify-content-center">
-          <button type="button" class="btn">
-            <i class="fa-solid fa-pen fa-xl"></i>
-          </button>
-        </td>
-        <td class="col d-flex align-items-center justify-content-center">
-          <button type="button" class="btn">
-            <i class="fa-solid fa-trash fa-xl"></i>
-          </button>
-        </td>
-      </tr>
-      <tr class="row">
-        <td class="col d-flex align-items-center justify-content-center">
-          <i class="fa-solid fa-utensils fa-2xl"></i>
-        </td>
-        <td class="col-4 d-flex flex-column justify-content-between">
-          <h2>午餐</h2>
-          <p class="mb-0">2023/5/7</p>
-        </td>
-        <td class="col-4 d-flex align-items-center justify-content-end">
-          <h2>12000</h2>
-        </td>
-        <td class="col d-flex align-items-center justify-content-center">
-          <button type="button" class="btn">
-            <i class="fa-solid fa-pen fa-xl"></i>
-          </button>
-        </td>
-        <td class="col d-flex align-items-center justify-content-center">
-          <button type="button" class="btn">
-            <i class="fa-solid fa-trash fa-xl"></i>
-          </button>
-        </td>
-      </tr>
+      {{/each}}
     </tbody>
   </table>
 
   <!--新增按鈕-->
   <div class="text-center mt-5">
-    <button type="button" class="btn btn-success">新增支出</button>
+    <a href="/new" class="btn btn-success">新增支出</a>
   </div>
 </div>
+
+<!--
+<div class="col-md-auto">
+        <a class="btn btn-secondary" href="/todos/{{ this._id }}">Detail</a>
+        <a class="btn btn-success" href="/todos/{{ this._id }}/edit">Edit</a>
+        <form action="/todos/{{ this._id }}?_method=DELETE" method="POST" style="display: inline;">
+          <button class="btn btn-danger" type="submit">Delete</button>
+        </form>
+      </div>
+-->

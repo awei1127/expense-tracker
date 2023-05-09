@@ -1,17 +1,47 @@
 const express = require('express')
 const router = express.Router()
-const getToday = require('../config/getToday')
+const dateTrans = require('../config/dateTrans')
+const RecordModel = require('../models/recordModel')
 
-router.get('/', (req, res) => {
-  res.render('index')
+// 查
+router.get('/', async (req, res) => {
+  const records = await RecordModel.find().lean().sort({ _id: 'asc' })
+
+  // 轉換date格式
+  records.forEach(record => {
+    record.date = dateTrans.formatDate(record.date)
+  })
+
+  res.render('index', { records })
 })
 
 router.get('/new', (req, res) => {
-  res.render('new', { date: getToday() })
+  const date = dateTrans.getToday()
+  res.render('new', { date })
 })
 
-router.get('/:id/edit', (req, res) => {
-  res.render('edit')
+// 增
+router.post('/new', async (req, res) => {
+  const { name, date, amount } = req.body
+  await RecordModel.create({ name, date, amount })
+  console.log('record created.')
+  res.redirect('/')
+})
+
+// 改
+router.get('/records/:id/edit', async (req, res) => {
+  const _id = req.params.id
+  const record = await RecordModel.findOne({ _id })
+  const { name, date, amount } = record
+  const formatDate = dateTrans.formatDate(date)
+  res.render('edit', { name, date: formatDate, amount })
+})
+
+// 刪
+router.delete('/records/:id', async (req, res) => {
+  const _id = req.params.id
+  await RecordModel.findOneAndDelete({ _id })
+  res.redirect('/')
 })
 
 router.get('/register', (req, res) => {
