@@ -3,9 +3,10 @@
   <div class="dropdown text-center mt-5">
     <button class="btn btn-secondary dropdown-toggle w-50 text-start" type="button" id="dropdownMenuButton1"
       data-bs-toggle="dropdown" aria-expanded="false">
-      所有類別
+      類別
     </button>
     <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+      <li><a class="dropdown-item" href="/">所有類別</a></li>
       {{#each categories}}
       <li><a class="dropdown-item" href="{{this._id}}">{{this.name}}</a></li>
       {{/each}}
@@ -15,7 +16,7 @@
   <!--金額合計-->
   <div class="d-flex justify-content-between w-50 mx-auto mt-5">
     <h2>總金額：</h2>
-    <h2 id="totalAmount" name="totalAmount">25260</h2>
+    <h2 id="totalAmount" name="totalAmount">{{totalAmount}}</h2>
   </div>
 
   <!--一覽表-->

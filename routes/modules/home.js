@@ -4,19 +4,6 @@ const tools = require('../../config/tools')
 const RecordModel = require('../../models/recordModel')
 const CategoryModel = require('../../models/categoryModel')
 
-// 查
-router.get('/', async (req, res) => {
-  const userId = req.user._id
-  const records = await RecordModel.find({ userId }).lean().sort({ _id: 'asc' })
-  const categories = await CategoryModel.find().lean().sort({ _id: 'asc' })
-
-  // 轉換date格式
-  records.forEach(record => {
-    record.date = tools.formatDate(record.date)
-  })
-
-  res.render('index', { records, categories })
-})
 
 router.get('/new', async (req, res) => {
   const date = tools.getToday()
@@ -30,6 +17,41 @@ router.post('/new', async (req, res) => {
   const userId = req.user._id
   await RecordModel.create({ name, date, amount, userId, categoryId })
   res.redirect('/')
+})
+
+// 查
+router.get('/', async (req, res) => {
+  const userId = req.user._id
+  const records = await RecordModel.find({ userId }).lean().sort({ _id: 'asc' })
+  const categories = await CategoryModel.find().lean().sort({ _id: 'asc' })
+  let totalAmount = 0
+
+  records.forEach(record => {
+    // 轉換date格式
+    record.date = tools.formatDate(record.date)
+    // 計算總金額
+    totalAmount += record.amount
+  })
+  res.locals.totalAmount = totalAmount
+  res.render('index', { records, categories })
+})
+
+// 查特定分類
+router.get('/:id', async (req, res) => {
+  const userId = req.user._id
+  const categoryId = req.params.id
+  const records = await RecordModel.find({ userId, categoryId }).lean().sort({ _id: 'asc' })
+  const categories = await CategoryModel.find().lean().sort({ _id: 'asc' })
+  let totalAmount = 0
+
+  records.forEach(record => {
+    // 轉換date格式
+    record.date = tools.formatDate(record.date)
+    // 計算總金額
+    totalAmount += record.amount
+  })
+  res.locals.totalAmount = totalAmount
+  res.render('index', { records, categories })
 })
 
 module.exports = router
