@@ -40,9 +40,10 @@ router.get('/', async (req, res) => {
 })
 
 // 查特定分類
-router.get('/:id', async (req, res) => {
+router.get('/:id/category', async (req, res) => {
   const userId = req.user._id
   const categoryId = req.params.id
+
   const records = await RecordModel.find({ userId, categoryId }).lean().sort({ _id: 'asc' })
   const categories = await CategoryModel.find().lean().sort({ _id: 'asc' })
   let totalAmount = 0
