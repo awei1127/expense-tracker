@@ -1,13 +1,9 @@
-# Restaurant List
-A simple web application for food fanatic
-
-![Index page about Restaurant List](./public/image/snapshot.jpg)
+# expense tracker
+A simple accounting book that can record various expenses and filter expenses by category.
 
 ## Features
-- searching restaurants by title
-- add new restaurants
-- edit restaurants data
-- remove restaurants data
-
-### Searching
-type the title of the restaurants in search bar
+- browse spending
+- browse spending by category
+- add new spending
+- edit spending
+- remove spending
