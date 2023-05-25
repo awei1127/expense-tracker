@@ -6,6 +6,7 @@ const methodOverride = require('method-override')
 const session = require('express-session')
 const usePassport = require('./config/passport')
 require('./config/mongoose')
+const PORT = process.env.PORT || 3000
 
 // 僅在非正式環境時, 使用 dotenv
 if (process.env.NODE_ENV !== 'production') {
@@ -25,6 +26,6 @@ app.use((req, res, next) => {
 
 app.use(routes)
 
-app.listen(process.env.PORT, () => {
-  console.log(`app is listening at http://localhost:${process.env.PORT}/`)
+app.listen(PORT, () => {
+  console.log(`app is listening at http://localhost:${PORT}`)
 })
