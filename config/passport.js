@@ -1,6 +1,7 @@
 const passport = require('passport')
 const LocalStrategy = require('passport-local').Strategy
 const UserModel = require('../models/userModel')
+const bcrypt = require('bcryptjs')
 
 function usePassport(app) {
   // 初始化passport
@@ -15,9 +16,8 @@ function usePassport(app) {
         if (!user) {
           return done(null, false, { message: '這個email尚未註冊' })
         }
-        if (password !== user.password) {
-          return done(null, false, { message: '密碼錯誤' })
-        }
+        const isMatch = await bcrypt.compare(password, user.password)
+        if (!isMatch) return done(null, false, { message: '密碼錯誤' })
         return done(null, user)
       } catch {
         return done(err)

@@ -2,6 +2,7 @@ const express = require('express')
 const router = express.Router()
 const UserModel = require('../../models/userModel')
 const passport = require('passport')
+const bcrypt = require('bcryptjs')
 
 router.get('/register', (req, res) => {
   res.render('register')
@@ -13,7 +14,9 @@ router.post('/register', async (req, res) => {
   // 找該email是否已存在 若否則新增 若是則顯示提示並渲染register
   const user = await UserModel.findOne({ email })
   if (!user) {
-    await UserModel.create({ name, email, password })
+    const salt = await bcrypt.genSalt(10)
+    const hash = await bcrypt.hash(password, salt)
+    await UserModel.create({ name, email, password: hash })
     res.redirect('/users/login')
   } else {
     console.log('user exist')// 預計在此行顯示email已註冊的提示訊息

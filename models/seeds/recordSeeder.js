@@ -4,6 +4,7 @@ const db = require('../../config/mongoose')
 const RecordModel = require('../recordModel')
 const UserModel = require('../userModel')
 const CategoryModel = require('../categoryModel')
+const bcrypt = require('bcryptjs')
 const SEED_USER = [
   {
     name: 'user1',
@@ -33,11 +34,13 @@ db.once('open', async () => {
   // 先分別寫好兩個Promise。一是創兩個user。二是拿著這兩個user創record。
   function userPromise() {
     return Promise.all(Array.from(SEED_USER, seedUser => {
-      return UserModel.create({
-        name: seedUser.name,
-        email: seedUser.email,
-        password: seedUser.password
-      })
+      return bcrypt.genSalt(10)
+        .then(salt => bcrypt.hash(seedUser.password, salt))
+        .then(hash => UserModel.create({
+          name: seedUser.name,
+          email: seedUser.email,
+          password: hash
+        }))
     }))
   }
 
